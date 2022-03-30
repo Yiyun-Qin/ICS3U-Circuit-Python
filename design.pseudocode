@@ -1,0 +1,8 @@
+GET number_compared
+IF (number_compared > 0) THEN
+    SHOW "number_compared is a positive number."
+ELSEIF (number_compared < 0) THEN
+    SHOW "number_compared is a negative number."
+ELSE
+    SHOW "number_compared is just 0!"
+ENDIF
