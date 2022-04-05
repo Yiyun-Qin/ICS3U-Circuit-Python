@@ -12,7 +12,7 @@ def game_scene():
     # main game function
 
     # grab the image, is image bank for CircuitPython
-    image_bank_background = stage.Bank.from_bmp16("space_aliens_background")
+    image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
     # 10 x 8 tiles for size 16 x 16
     background = stage.Grid(image_bank_background, 10, 8)
 
