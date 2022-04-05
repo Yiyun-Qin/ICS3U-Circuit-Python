@@ -1,7 +1,7 @@
 # /usr/bin/env python3
 
 # Created by: Yiyun Qin
-# Created on: March 2022
+# Created on: April 2022
 # This is the star wars game
 
 import ugame
