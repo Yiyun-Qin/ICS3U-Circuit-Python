@@ -30,7 +30,7 @@ def game_scene():
     # repeat forever, game loop
     while True:
         # get user input
-        keys = ugame.button.get_pressed()
+        keys = ugame.buttons.get_pressed()
 
         # K_X: constants of button A
         if keys & ugame.K_X:
