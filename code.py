@@ -4,8 +4,8 @@
 # Created in: April 2022
 # This is the star wars game
 
-import ugame
 import stage
+import ugame
 
 
 def game_scene():
