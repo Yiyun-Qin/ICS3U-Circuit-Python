@@ -50,7 +50,6 @@ def game_scene():
         if keys & ugame.K_DOWN:
             ship.move(ship.x, ship.y + 1)
 
-
         # update game logic
 
         # redraw Sprites
