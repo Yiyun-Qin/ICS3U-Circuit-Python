@@ -4,10 +4,9 @@
 # Created in: April 2022
 # This is the star wars game
 
+import constants
 import stage
 import ugame
-
-import constants
 
 
 def game_scene():
@@ -17,10 +16,14 @@ def game_scene():
     image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
     image_bank_sprites = stage.Bank.from_bmp16("space_aliens.bmp")
     # 10 x 8 tiles for size 16 x 16
-    background = stage.Grid(image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y)
+    background = stage.Grid(
+        image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y
+    )
 
     # pick the 5th picture and shown up at (75, 66)
-    ship = stage.Sprite(image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE))
+    ship = stage.Sprite(
+        image_bank_sprites, 5, 75, constants.SCREEN_Y - (2 * constants.SPRITE_SIZE)
+    )
 
     # create a stage to display background, frame rate 60 fps
     game = stage.Stage(ugame.display, constants.FPS)
