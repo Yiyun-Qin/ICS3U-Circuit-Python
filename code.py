@@ -17,12 +17,16 @@ def menu_scene():
 
     # add text objects
     text = []
-    text1 = stage.Text(width = 29, height = 12, font = None, palette = constants.RED_PALETTE, buffer = None)
+    text1 = stage.Text(
+        width = 29, height = 12, font = None, palette = constants.RED_PALETTE, buffer = None
+    )
     text1.move(20, 10)
     text1.text("MT Game Studios")
     text.append(text1)
 
-    text2 = stage.Text(width = 29, height = 12, font = None, palette = constants.RED_PALETTE, buffer = None)
+    text2 = stage.Text(
+        width = 29, height = 12, font = None, palette = constants.RED_PALETTE, buffer = None
+    )
     text2.move(40, 110)
     text2.text("PRESS START")
     text.append(text2)
@@ -66,7 +70,7 @@ def game_scene():
     select_button = constants.button_state["button_up"]
 
     # get sound ready
-    pew_sound = open("pew.wav", 'rb')
+    pew_sound = open("pew.wav", "rb")
     sound = ugame.audio
     sound.stop()
     sound.mute(False)
@@ -85,7 +89,7 @@ def game_scene():
         image_bank_sprites,
         9,
         int(constants.SCREEN_X / 2 - constants.SPRITE_SIZE / 2),
-        constants.SPRITE_SIZE
+        constants.SPRITE_SIZE,
     )
 
     # create a stage to display background, frame rate 60 fps
