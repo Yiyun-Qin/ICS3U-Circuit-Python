@@ -4,11 +4,12 @@
 # Created in: April 2022
 # This is the star wars game
 
+import random
+import time
+
 import constants
 import stage
 import ugame
-import time
-import random
 
 
 def splash_scene():
@@ -28,6 +29,7 @@ def splash_scene():
     background = stage.Grid(
         image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y
     )
+
 
     # used this program to split the image into tile: 
     #   https://ezgif.com/sprite-cutter/ezgif-5-818cdbcc3f66.png
