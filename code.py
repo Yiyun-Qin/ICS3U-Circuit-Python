@@ -69,7 +69,7 @@ def splash_scene():
     # repeat forever, game loop
     while True:
         # wait for 2 seconds
-        time.sleep(2, 0)
+        time.sleep(2.0)
         menu_scene()
 
 
@@ -143,6 +143,10 @@ def game_scene():
     background = stage.Grid(
         image_bank_background, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y
     )
+    for x_location in range(constants.SCREEN_GRID_X):
+        for y_location in range(constants.SCREEN_GRID_Y):
+            tile_picked = random.randint(1, 3)
+            background.tile(x_location, y_location, tile_picked)
 
     # pick the 5th picture and shown up at (75, 66)
     ship = stage.Sprite(
