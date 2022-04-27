@@ -160,11 +160,18 @@ def game_scene():
         int(constants.SCREEN_X / 2 - constants.SPRITE_SIZE / 2),
         constants.SPRITE_SIZE,
     )
+    # create list of lasers for when we shoot
+    lasers = []
+    for laser_number in range(constants.TOTAL_NUMBER_OF_LASERS):
+        a_single_laser = stage.Sprite(image_bank_sprites, 10,
+                                      constants.OFF_SCREEN_X,
+                                      constants.OFF_SCREEN_Y)
+    lasers.append(a_single_laser)
 
     # create a stage to display background, frame rate 60 fps
     game = stage.Stage(ugame.display, constants.FPS)
     # set the layer, items show up in order
-    game.layers = [ship] + [alien] + [background]
+    game.layers = lasers + [ship] + [alien] + [background]
     # take layers to show on the screen
     game.render_block()
 
@@ -203,10 +210,25 @@ def game_scene():
         # update game logic
         # play sound if A was just button_just_pressed
         if a_button == constants.button_state["button_just_pressed"]:
-            sound.play(pew_sound)
+            # fire a laser, if we have enough power
+            for laser_number in range(len(lasers)):
+                if lasers[laser_number].x < 0:
+                    lasers[laser_number].move(ship.x, ship.y)
+                    sound.play(pew_sound)
+                    break
+
+        # each frame move up the lasers, that has been fired up
+        for laser_number in range(len(lasers)):
+            if lasers[laser_number].x > 0:
+                lasers[laser_number].move(lasers[laser_number].x,
+                                          lasers[laser_number].y -
+                                          constants.LASER_SPEED)
+                if lasers[laser_number].y < constants.OFF_TOP_SCREEN:
+                    lasers[laser_number].move(constants.OFF_SCREEN_X,
+                                              constants.OFF_SCREEN_Y)
 
         # redraw Sprites
-        game.render_sprites([ship] + [alien])
+        game.render_sprites(lasers + [ship] + [alien])
         # wait until 60 tick and loop again
         game.tick()
 
