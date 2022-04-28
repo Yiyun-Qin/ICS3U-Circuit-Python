@@ -227,7 +227,7 @@ def game_scene():
             if lasers[laser_number].x > 0:
                 lasers[laser_number].move(
                     lasers[laser_number].x,
-                    lasers[laser_number].y - constants.LASER_SPEED
+                    lasers[laser_number].y - constants.LASER_SPEED,
                 )
                 # a list to check the lasers on the screen
                 list = [i for i in [lasers[laser_number].y] if i > 0]
