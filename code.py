@@ -12,7 +12,6 @@ import stage
 import ugame
 import board
 import neopixel
-from collections import Counter
 
 
 def splash_scene():
@@ -172,7 +171,7 @@ def game_scene():
     lasers.append(a_single_laser)
 
     # create the neopixels
-    pixels = neopixel.NeoPixel(constants.PIXEL_PIN, constants.NUMBER_PIXELS)
+    pixels = neopixel.NeoPixel(board.D8, constants.NUMBER_PIXELS)
 
     # create a stage to display background, frame rate 60 fps
     game = stage.Stage(ugame.display, constants.FPS)
@@ -230,13 +229,16 @@ def game_scene():
                     lasers[laser_number].x,
                     lasers[laser_number].y - constants.LASER_SPEED
                 )
-                list = [lasers[laser_number].x]
-                for pixel_number in range(len[1 for i in list if i > 0]):
-                    pixel[pixel_number] = (255, 0, 0)
+                # a list to check the lasers on the screen
+                list = [i for i in [lasers[laser_number].y] if i > 0]
+                # when a laser on the screen, a neopixel will turn red
+                for pixel_number in range(len(list)):
+                    pixels[pixel_number] = (255, 0, 0)
                 if lasers[laser_number].y < constants.OFF_TOP_SCREEN:
                     lasers[laser_number].move(
                         constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y
                     )
+                    pixels[pixel_number] = (0, 0, 0)
 
         # redraw Sprites
         game.render_sprites(lasers + [ship] + [alien])

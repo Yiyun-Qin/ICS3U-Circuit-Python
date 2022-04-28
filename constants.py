@@ -22,7 +22,6 @@ OFF_TOP_SCREEN = -1 * SPRITE_SIZE
 OFF_BOTTOM_SCREEN = SCREEN_Y + SPRITE_SIZE
 
 # using for neopixels
-PIXEL_PIN = board.D8
 NUMBER_PIXELS = 5
 
 # using for button state
