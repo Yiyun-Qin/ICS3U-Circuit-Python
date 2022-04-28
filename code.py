@@ -10,6 +10,9 @@ import time
 import constants
 import stage
 import ugame
+import board
+import neopixel
+from collections import Counter
 
 
 def splash_scene():
@@ -163,10 +166,13 @@ def game_scene():
     # create list of lasers for when we shoot
     lasers = []
     for laser_number in range(constants.TOTAL_NUMBER_OF_LASERS):
-        a_single_laser = stage.Sprite(image_bank_sprites, 10,
-                                      constants.OFF_SCREEN_X,
-                                      constants.OFF_SCREEN_Y)
+        a_single_laser = stage.Sprite(
+            image_bank_sprites, 10, constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y
+        )
     lasers.append(a_single_laser)
+
+    # create the neopixels
+    pixels = neopixel.NeoPixel(constants.PIXEL_PIN, constants.NUMBER_PIXELS)
 
     # create a stage to display background, frame rate 60 fps
     game = stage.Stage(ugame.display, constants.FPS)
@@ -220,12 +226,17 @@ def game_scene():
         # each frame move up the lasers, that has been fired up
         for laser_number in range(len(lasers)):
             if lasers[laser_number].x > 0:
-                lasers[laser_number].move(lasers[laser_number].x,
-                                          lasers[laser_number].y -
-                                          constants.LASER_SPEED)
+                lasers[laser_number].move(
+                    lasers[laser_number].x,
+                    lasers[laser_number].y - constants.LASER_SPEED
+                )
+                list = [lasers[laser_number].x]
+                for pixel_number in range(len[1 for i in list if i > 0]):
+                    pixel[pixel_number] = (255, 0, 0)
                 if lasers[laser_number].y < constants.OFF_TOP_SCREEN:
-                    lasers[laser_number].move(constants.OFF_SCREEN_X,
-                                              constants.OFF_SCREEN_Y)
+                    lasers[laser_number].move(
+                        constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y
+                    )
 
         # redraw Sprites
         game.render_sprites(lasers + [ship] + [alien])
