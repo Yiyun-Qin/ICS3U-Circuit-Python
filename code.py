@@ -7,11 +7,11 @@
 import random
 import time
 
-import board
 import constants
-import neopixel
 import stage
 import ugame
+import board
+import neopixel
 
 
 def splash_scene():
@@ -168,7 +168,7 @@ def game_scene():
         a_single_laser = stage.Sprite(
             image_bank_sprites, 10, constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y
         )
-    lasers.append(a_single_laser)
+        lasers.append(a_single_laser)
 
     # create the neopixels
     pixels = neopixel.NeoPixel(board.D8, constants.NUMBER_PIXELS)
@@ -181,6 +181,7 @@ def game_scene():
     game.render_block()
 
     # repeat forever, game loop
+    loop_counter = 0
     while True:
         # get user input
         keys = ugame.buttons.get_pressed()
@@ -220,6 +221,8 @@ def game_scene():
                 if lasers[laser_number].x < 0:
                     lasers[laser_number].move(ship.x, ship.y)
                     sound.play(pew_sound)
+                    # when a laser is shoot, counter + 1
+                    loop_counter = loop_counter + 1
                     break
 
         # each frame move up the lasers, that has been fired up
@@ -229,16 +232,20 @@ def game_scene():
                     lasers[laser_number].x,
                     lasers[laser_number].y - constants.LASER_SPEED,
                 )
-                # a list to check the lasers on the screen
-                list = [i for i in [lasers[laser_number].y] if i > 0]
-                # when a laser on the screen, a neopixel will turn red
-                for pixel_number in range(len(list)):
+                # pixel is light when a laser is shoot
+                # a laser--counter0+1--pixel0
+                for pixel_number in range(loop_counter):
                     pixels[pixel_number] = (255, 0, 0)
+                
+                # a list to check the lasers on the screen
+                # when a laser on the screen, a neopixel will turn red
                 if lasers[laser_number].y < constants.OFF_TOP_SCREEN:
                     lasers[laser_number].move(
                         constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y
                     )
-                    pixels[pixel_number] = (0, 0, 0)
+                    loop_counter = loop_counter - 1
+                    for pixel_number in range(loop_counter):
+                        pixels[pixel_number] = (0, 0, 0)
 
         # redraw Sprites
         game.render_sprites(lasers + [ship] + [alien])
