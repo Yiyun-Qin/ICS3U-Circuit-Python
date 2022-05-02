@@ -244,7 +244,7 @@ def game_scene():
                         constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y
                     )
                     loop_counter = loop_counter - 1
-                    for pixel_number in range(loop_counter):
+                    for pixel_number in range(5 - loop_counter):
                         pixels[pixel_number] = (0, 0, 0)
 
         # redraw Sprites
