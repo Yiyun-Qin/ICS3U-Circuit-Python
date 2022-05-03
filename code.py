@@ -266,7 +266,7 @@ def game_scene():
         # each frame move the aliens down, that are on the screen
         for alien_number in range(len(aliens)):
             if aliens[alien_number].x > 0:
-                aliens[alien _number].move(
+                aliens[alien_number].move(
                     aliens[alien_number].x,
                     aliens[alien_number].y + constants.ALIEN_SPEED,
                 )
