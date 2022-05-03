@@ -7,11 +7,11 @@
 import random
 import time
 
+import board
 import constants
+import neopixel
 import stage
 import ugame
-import board
-import neopixel
 
 
 def splash_scene():
