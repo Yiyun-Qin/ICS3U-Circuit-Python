@@ -126,6 +126,9 @@ def menu_scene():
 def game_scene():
     # main game function
 
+    # for score
+    score = 0
+
     def show_alien():
         # this function takes aliens from off screen and move it on the screen
         for alien_number in range(len(aliens)):
@@ -276,6 +279,14 @@ def game_scene():
                         constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y
                     )
                     show_alien()
+
+        for laser_number in range(len(lasers)):
+            for alien_number in range(len(aliens)):
+                if stage.collide(lasers[laser_number].x, lasers[laser_number].y,
+                                lasers[laser_number].x + 16, lasers[laser_number].y + 16,
+                                aliens[alien_number].x, aliens[alien_number].y,
+                                aliens[alien_number].x + 16, aliens[alien_number].y + 16):
+                    print("Hit")
 
         # redraw Sprites
         game.render_sprites(lasers + [ship] + aliens)
