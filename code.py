@@ -133,8 +133,9 @@ def game_scene():
                 aliens[alien_number].move(
                     random.randint(
                         0 + constants.SPRITE_SIZE,
-                        constants.SCREEN_X - constants.SPRITE_SIZE),
-                        constants.OFF_TOP_SCREEN
+                        constants.SCREEN_X - constants.SPRITE_SIZE
+                    ),
+                    constants.OFF_TOP_SCREEN
                 )
                 break
 
@@ -171,7 +172,7 @@ def game_scene():
     # another sprite, create a list of aliens
     aliens = []
     for alien_number in range(constants.TOTAL_NUMBER_OF_ALIENS):
-        a_single_alien = stage.Sprite( 
+        a_single_alien = stage.Sprite(
             image_bank_sprites, 9, constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y
         )
         aliens.append(a_single_alien)
@@ -252,7 +253,7 @@ def game_scene():
                 # a laser--counter0+1--pixel0
                 for pixel_number in range(loop_counter):
                     pixels[pixel_number] = (255, 0, 0)
-                
+
                 # a list to check the lasers on the screen
                 # when a laser on the screen, a neopixel will turn red
                 if lasers[laser_number].y < constants.OFF_TOP_SCREEN:
