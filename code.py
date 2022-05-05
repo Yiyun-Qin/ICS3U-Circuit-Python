@@ -298,8 +298,12 @@ def game_scene():
                         ):
 
                             # you hit an alien
-                            aliens[alien_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
-                            lasers[laser_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+                            aliens[alien_number].move(
+                                constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y
+                            )
+                            lasers[laser_number].move(
+                                constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y
+                            )
                             sound.stop()
                             sound.play(boom_sound)
                             show_alien()
