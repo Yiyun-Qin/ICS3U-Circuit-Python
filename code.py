@@ -129,6 +129,12 @@ def game_scene():
     # for score
     score = 0
 
+    score_text = stage.Text(width=29, height=14)
+    score_text.clear()
+    score_text.cursor(0, 0)
+    score_text.move(1, 1)
+    score_text.text("Score: {0}".format(score))
+
     def show_alien():
         # this function takes aliens from off screen and move it on the screen
         for alien_number in range(len(aliens)):
@@ -197,7 +203,7 @@ def game_scene():
     # create a stage to display background, frame rate 60 fps
     game = stage.Stage(ugame.display, constants.FPS)
     # set the layer, items show up in order
-    game.layers = lasers + [ship] + aliens + [background]
+    game.layers = [score_text] + lasers + [ship] + aliens + [background]
     # take layers to show on the screen
     game.render_block()
 
@@ -280,6 +286,14 @@ def game_scene():
                         constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y
                     )
                     show_alien()
+                    # -= means subtract the number from variable and assign the result to the variable
+                    score -= 1
+                    if score < 0:
+                        score = 0
+                    score_text.clear()
+                    score_text.cursor(0, 0)
+                    score_text.move(1, 1)
+                    score_text.text("Score: {0}".format(score))
 
         # each frame check if any the lasers on the screen are touching the aliens on the screen
         for laser_number in range(len(lasers)):
@@ -309,6 +323,10 @@ def game_scene():
                             show_alien()
                             show_alien()
                             score = score + 1
+                            score_text.clear()
+                            score_text.cursor(0, 0)
+                            score_text.move(1, 1)
+                            score_text.text("Score: {0}".format(score))
                             loop_counter = loop_counter - 1
                             for pixel_number in range(5 - loop_counter):
                                 pixels[pixel_number] = (0, 0, 0)
