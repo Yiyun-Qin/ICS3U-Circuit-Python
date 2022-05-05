@@ -281,7 +281,7 @@ def game_scene():
                     )
                     show_alien()
 
-        # each frame check if any the lasers on the screen are touching the aliens on the screen 
+        # each frame check if any the lasers on the screen are touching the aliens on the screen
         for laser_number in range(len(lasers)):
             if lasers[laser_number].x > 0:
                 for alien_number in range(len(aliens)):
@@ -294,7 +294,7 @@ def game_scene():
                             aliens[alien_number].x + 1,
                             aliens[alien_number].y,
                             aliens[alien_number].x + 15,
-                            aliens[alien_number].y + 15
+                            aliens[alien_number].y + 15,
                         ):
 
                             # you hit an alien
