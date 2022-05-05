@@ -157,6 +157,7 @@ def game_scene():
     sound = ugame.audio
     sound.stop()
     sound.mute(False)
+    boom_sound = open("boom.wav", "rb")
 
     # 10 x 8 tiles for size 16 x 16
     background = stage.Grid(
@@ -280,13 +281,27 @@ def game_scene():
                     )
                     show_alien()
 
+        # each frame check if any the lasers on the screen are touching the aliens on the screen 
         for laser_number in range(len(lasers)):
-            for alien_number in range(len(aliens)):
-                if stage.collide(lasers[laser_number].x, lasers[laser_number].y,
-                                lasers[laser_number].x + 16, lasers[laser_number].y + 16,
-                                aliens[alien_number].x, aliens[alien_number].y,
-                                aliens[alien_number].x + 16, aliens[alien_number].y + 16):
-                    print("Hit")
+            if lasers[laser_number].x > 0:
+                for alien_number in range(len(aliens)):
+                    if aliens[alien_number].x > 0:
+                        if stage.collide(lasers[laser_number].x + 6, lasers[laser_number].y + 2,
+                                         lasers[laser_number].x + 11, lasers[laser_number].y + 12,
+                                         aliens[alien_number].x + 1, aliens[alien_number].y,
+                                         aliens[alien_number].x + 15, aliens[alien_number].y + 15):
+
+                            # you hit an alien
+                            aliens[alien_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+                            lasers[laser_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+                            sound.stop()
+                            sound.play(boom_sound)
+                            show_alien()
+                            show_alien()
+                            score = score + 1
+                            loop_counter = loop_counter - 1
+                            for pixel_number in range(5 - loop_counter):
+                                pixels[pixel_number] = (0, 0, 0)
 
         # redraw Sprites
         game.render_sprites(lasers + [ship] + aliens)
