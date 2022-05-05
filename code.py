@@ -12,6 +12,7 @@ import constants
 import neopixel
 import stage
 import ugame
+import supervisor
 
 
 def splash_scene():
@@ -160,10 +161,11 @@ def game_scene():
 
     # get sound ready
     pew_sound = open("pew.wav", "rb")
+    boom_sound = open("boom.wav", "rb")
+    crash_sound = open("crash.wav", "rb")
     sound = ugame.audio
     sound.stop()
     sound.mute(False)
-    boom_sound = open("boom.wav", "rb")
 
     # 10 x 8 tiles for size 16 x 16
     background = stage.Grid(
@@ -331,10 +333,44 @@ def game_scene():
                             for pixel_number in range(5 - loop_counter):
                                 pixels[pixel_number] = (0, 0, 0)
 
+        # each frame check if any aliens are touching the spaceship
+        for alien_number in range(len(aliens)):
+            if aliens[alien_number].x > 0:
+                if stage.collide(
+                    aliens[alien_number].x + 1,
+                    aliens[alien_number].y,
+                    aliens[alien_number].x + 15,
+                    aliens[alien_number].y + 15,
+                    ship.x, ship.y,
+                    ship.x + 15, ship.y + 15,
+                ):
+                    # alien hits the ship
+                    sound.stop()
+                    sound.play(crash_sound)
+                    time.sleep(3.0)
+                    game_over_scene(score)
+
         # redraw Sprites
         game.render_sprites(lasers + [ship] + aliens)
         # wait until 60 tick and loop again
         game.tick()
+
+def game_over_scene(final_score):
+    # this function is the game over scene
+
+    # image banks for CircuitPython
+    image_bank_2 = stage.Bank.from_bmp16("mt_game_studio.bmp")
+
+    # sets the background to image 0 in the image bank
+    background = stage.Grid(
+        image_bank_2, constants.SCREEN_GRID_X, constants.SCREEN_GRID_Y
+    )
+
+    # add text objects
+    text = []
+    text1 = stage.Text(width=29, height=14, font=None, palette=constants.BLUE_PALETTE, buffer=None)
+    text1.move(22, 20)
+    text1.text("Final Score: {:0>2d}".format(final_score))
 
 
 if __name__ == "__main__":
