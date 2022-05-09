@@ -368,9 +368,39 @@ def game_over_scene(final_score):
 
     # add text objects
     text = []
-    text1 = stage.Text(width=29, height=14, font=None, palette=constants.BLUE_PALETTE, buffer=None)
+    text1 = stage.Text(width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None)
     text1.move(22, 20)
     text1.text("Final Score: {:0>2d}".format(final_score))
+    text.append(text1)
+
+    text2 = stage.Text(width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text2.move(43, 60)
+    text2.text("GAME OVER")
+    text.append(text2)
+
+    text3 = stage.Text(width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text3.move(32, 110)
+    text3.text("PRESS SELECT")
+    text.append(text3)
+
+    # create a stage for background to show up
+    game = stage.Stage(ugame.display, constants.FPS)
+    # set layers, items show in order
+    game.layers = text + [background]
+    # take the layers and show them on the screen
+    game.render_block()
+
+    # repeat forever, game loop
+    while True:
+        # get users input
+        keys = ugame.buttons.get_pressed()
+
+        # start button selected
+        if keys & ugame.K_SELECT != 0:
+            supervisor.reload()
+
+        # update game logic
+        game.tick()
 
 
 if __name__ == "__main__":
