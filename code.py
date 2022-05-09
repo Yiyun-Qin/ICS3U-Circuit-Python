@@ -11,8 +11,8 @@ import board
 import constants
 import neopixel
 import stage
-import ugame
 import supervisor
+import ugame
 
 
 def splash_scene():
@@ -341,8 +341,10 @@ def game_scene():
                     aliens[alien_number].y,
                     aliens[alien_number].x + 15,
                     aliens[alien_number].y + 15,
-                    ship.x, ship.y,
-                    ship.x + 15, ship.y + 15,
+                    ship.x,
+                    ship.y,
+                    ship.x + 15,
+                    ship.y + 15,
                 ):
                     # alien hits the ship
                     sound.stop()
@@ -354,6 +356,7 @@ def game_scene():
         game.render_sprites(lasers + [ship] + aliens)
         # wait until 60 tick and loop again
         game.tick()
+
 
 def game_over_scene(final_score):
     # this function is the game over scene
@@ -368,17 +371,23 @@ def game_over_scene(final_score):
 
     # add text objects
     text = []
-    text1 = stage.Text(width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text1 = stage.Text(
+        width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None
+    )
     text1.move(22, 20)
     text1.text("Final Score: {:0>2d}".format(final_score))
     text.append(text1)
 
-    text2 = stage.Text(width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text2 = stage.Text(
+        width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None
+    )
     text2.move(43, 60)
     text2.text("GAME OVER")
     text.append(text2)
 
-    text3 = stage.Text(width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None)
+    text3 = stage.Text(
+        width=29, height=14, font=None, palette=constants.RED_PALETTE, buffer=None
+    )
     text3.move(32, 110)
     text3.text("PRESS SELECT")
     text.append(text3)
